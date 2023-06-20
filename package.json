@@ -1,0 +1,24 @@
+{
+  "name": "api-rest",
+  "version": "1.0.0",
+  "description": "Projeto para criação de uma api rest para um Sistema de Gestão de Recompensa para Tarefas de Crianças",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -r dotenv/config .",
+    "migrate": "echo not implemented yet"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "knex": "^2.4.2",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.4.0",
+    "nodemon": "^2.0.22"
+  }
+}

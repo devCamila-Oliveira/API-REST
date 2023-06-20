@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - API_PORT=$NODE_DOCKER_PORT
+    container_name: api-server
+    command: sh -c "npm run
+     migrate && npm start"
+    ports:
+      - ${NODE_DOCKER_PORT}:${NODE_DOCKER_PORT}
+    volumes:
+      - .:/usr/app
+    links:
+      - db
+    depends_on:
+      - db
+    environment:
+      DB_HOST: host.docker.internal
+  db:
+    image: mysql
+    container_name: api-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - "./database/schema.sql:/docker-entrypoint-initdb.d/1.sql"
