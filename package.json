@@ -1,10 +1,10 @@
 {
   "name": "api-rest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Projeto para criação de uma api rest para um Sistema de Gestão de Recompensa para Tarefas de Crianças",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -r dotenv/config .",
+    "start": "nodemon -L -r dotenv/config .",
     "migrate": "echo not implemented yet"
   },
   "keywords": [],

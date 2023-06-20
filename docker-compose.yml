@@ -5,8 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - API_PORT=$NODE_DOCKER_PORT
     container_name: api-server
     command: sh -c "npm run
      migrate && npm start"
@@ -20,6 +18,7 @@ services:
       - db
     environment:
       DB_HOST: host.docker.internal
+    
   db:
     image: mysql
     container_name: api-db

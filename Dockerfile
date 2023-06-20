@@ -8,6 +8,4 @@ RUN npm install
 
 COPY . .
 
-EXPOSE ${API_PORT}
-
 CMD ["npm", "start"]
