@@ -1,13 +1,14 @@
 var database = require("../database/connection");
 
 class TarefaController {
-    gravarTarefa(req, res) {
-        const { nome, descricao, pontuacaoBase } = req.body;
+    gravarTarefaCrianca(req, res) {
+        let { idCrianca, idTarefa } = req.params;
+        let { pontuacao } = req.body;
 
-        database("tarefa")
-            .insert({ nome, descricao, pontuacaoBase })
+        database("tarefaCrianca")
+            .insert({ idCrianca, idTarefa, pontuacao })
             .then((data) => {
-                res.json({ message: "Tarefa criada com sucesso." });
+                res.json({ message: "TarefaCriança criada com sucesso." });
             })
             .catch((err) => {
                 console.error(err);
@@ -15,7 +16,7 @@ class TarefaController {
     }
 
     consultarTarefas(req, res) {
-        database("tarefa")
+        database("tarefaCrianca")
             .select()
             .then((tarefas) => {
                 res.json(tarefas);
@@ -25,9 +26,9 @@ class TarefaController {
             });
     }
 
-    consultarTarefa(req, res) {
+    consultarTarefaPorCrianca(req, res) {
         let { id } = req.params;
-        database("tarefa")
+        database("tarefaCrianca")
             .where({ idTarefa: id })
             .select()
             .then((tarefa) => {
@@ -42,7 +43,7 @@ class TarefaController {
         let { id } = req.params;
         let { nome, descricao, pontuacaoBase } = req.body;
 
-        database("tarefa")
+        database("tarefaCrianca")
             .where({ idTarefa: id })
             .update({
                 nome: nome,
@@ -50,7 +51,7 @@ class TarefaController {
                 pontuacaoBase: pontuacaoBase,
             })
             .then((data) => {
-                res.json({ message: "Tarefa atualizada com sucesso." });
+                res.json({ message: "TarefaCrianca atualizada com sucesso." });
             })
             .catch((err) => {
                 res.json(err);
@@ -64,7 +65,7 @@ class TarefaController {
             .where({ idTarefa: id })
             .del()
             .then((data) => {
-                res.json({ message: "Tarefa removida com sucesso." });
+                res.json({ message: "TarefaCrianca removida com sucesso." });
             })
             .catch((err) => {
                 res.status(400).json(err);
