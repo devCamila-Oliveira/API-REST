@@ -1,6 +1,6 @@
 var database = require("../database/connection");
 
-class TarefaController {
+class TarefaCriancaController {
     gravarTarefaCrianca(req, res) {
         let { idCrianca, idTarefa } = req.params;
         let { pontuacao } = req.body;
@@ -15,40 +15,34 @@ class TarefaController {
             });
     }
 
-    consultarTarefas(req, res) {
+    listarTarefasPorCrianca(req, res) {
+        let { idCrianca } = req.params;
         database("tarefaCrianca")
+            .where({ idTarefa: idCrianca })
             .select()
-            .then((tarefas) => {
-                res.json(tarefas);
+            .innerJoin("tarefa", "tarefaCrianca.idTarefa", "tarefa.idTarefa")
+            .innerJoin(
+                "crianca",
+                "tarefaCrianca.idCrianca",
+                "crianca.idCrianca"
+            )
+            .then((tarefaCrianca) => {
+                res.json(tarefaCrianca);
             })
             .catch((err) => {
                 res.status(400).json(err);
             });
     }
 
-    consultarTarefaPorCrianca(req, res) {
-        let { id } = req.params;
-        database("tarefaCrianca")
-            .where({ idTarefa: id })
-            .select()
-            .then((tarefa) => {
-                res.json(tarefa);
-            })
-            .catch((err) => {
-                res.status(400).json(err);
-            });
-    }
-
-    atualizarTarefa(req, res) {
-        let { id } = req.params;
-        let { nome, descricao, pontuacaoBase } = req.body;
+    atualizarTarefaCrianca(req, res) {
+        let { idTarefaCrianca } = req.params;
+        let { idCrianca, pontuacao } = req.body;
 
         database("tarefaCrianca")
-            .where({ idTarefa: id })
+            .where({ idTarefaCrianca: idTarefaCrianca })
             .update({
-                nome: nome,
-                descricao: descricao,
-                pontuacaoBase: pontuacaoBase,
+                pontuacao: pontuacao,
+                idCrianca: idCrianca,
             })
             .then((data) => {
                 res.json({ message: "TarefaCrianca atualizada com sucesso." });
@@ -58,11 +52,30 @@ class TarefaController {
             });
     }
 
-    removerTarefa(req, res) {
-        let { id } = req.params;
+    exbirTarefaCrianca(req, res) {
+        let { idTarefaCrianca } = req.params;
 
-        database("tarefa")
-            .where({ idTarefa: id })
+        database("tarefaCrianca")
+            .select()
+            .innerJoin("tarefa", "tarefaCrianca.idTarefa", "tarefa.idTarefa")
+            .innerJoin(
+                "crianca",
+                "tarefaCrianca.idCrianca",
+                "crianca.idCrianca"
+            )
+            .where({ idTarefaCrianca: idTarefaCrianca }).then(tarefaCrianca => {
+                res.json(tarefaCrianca)
+            }).catch(err=>{
+                console.error(err)
+                res.status(400).json(err)
+            });
+    }
+
+    removerTarefaCrianca(req, res) {
+        let { idTarefaCrianca } = req.params;
+
+        database("tarefaCrianca")
+            .where({ idTarefaCrianca: idTarefaCrianca })
             .del()
             .then((data) => {
                 res.json({ message: "TarefaCrianca removida com sucesso." });
@@ -73,4 +86,4 @@ class TarefaController {
     }
 }
 
-module.exports = new TarefaController();
+module.exports = new TarefaCriancaController();

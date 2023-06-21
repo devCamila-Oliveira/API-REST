@@ -7,7 +7,6 @@ class CriancaController {
         
         await LoginController.insertUser(username, senha)
             .then((data) => {
-                console.log(data, typeof(data))
                 database("crianca")
                     .insert({
                         nome,
@@ -30,7 +29,7 @@ class CriancaController {
             });
     }
 
-    consultarCriancas(req, res) {
+    listarCriancas(req, res) {
         database("crianca")
             .select()
             .innerJoin("usuario", "crianca.idUsuario", "usuario.idUsuario")
@@ -42,7 +41,7 @@ class CriancaController {
             });
     }
 
-    consultarCrianca(req, res) {
+    exibirCrianca(req, res) {
         let { id } = req.params;
         database("crianca")
             .where({ idCrianca: id })

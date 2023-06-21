@@ -14,7 +14,7 @@ class TarefaController {
             });
     }
 
-    consultarTarefas(req, res) {
+    listarTarefas(req, res) {
         database("tarefa")
             .select()
             .then((tarefas) => {
@@ -25,7 +25,7 @@ class TarefaController {
             });
     }
 
-    consultarTarefa(req, res) {
+    exibirTarefa(req, res) {
         let { id } = req.params;
         database("tarefa")
             .where({ idTarefa: id })
