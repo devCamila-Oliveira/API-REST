@@ -23,7 +23,8 @@ router.delete("/crianca/remover/:id", CriancaController.removerCrianca);
 
 router.post("/tarefaCrianca/cadastrar/:idCrianca/:idTarefa", TarefaCriancaController.gravarTarefaCrianca);
 router.put("/tarefaCrianca/atualizar/:idCrianca/:idTarefa", TarefaCriancaController.atualizarTarefaCrianca);
-router.get("/tarefaCrianca/:idCrianca", TarefaCriancaController.listarTarefasPorCrianca);
-router.get("/tarefaCrianca/:idTarefaCrianca", TarefaCriancaController.listarTarefasPorCrianca);
+router.get("/tarefasCrianca/:idCrianca", TarefaCriancaController.listarTarefasPorCrianca);
+router.get("/tarefaCrianca/:idTarefaCrianca", TarefaCriancaController.exibirTarefaCrianca);
+router.delete("/tarefaCrianca/remover/:idTarefaCrianca", TarefaCriancaController.removerTarefaCrianca);
 
 module.exports = router;

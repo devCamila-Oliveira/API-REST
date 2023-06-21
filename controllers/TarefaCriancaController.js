@@ -18,7 +18,7 @@ class TarefaCriancaController {
     listarTarefasPorCrianca(req, res) {
         let { idCrianca } = req.params;
         database("tarefaCrianca")
-            .where({ idTarefa: idCrianca })
+            .where("tarefaCrianca.idCrianca", idCrianca )
             .select()
             .innerJoin("tarefa", "tarefaCrianca.idTarefa", "tarefa.idTarefa")
             .innerJoin(
@@ -52,7 +52,7 @@ class TarefaCriancaController {
             });
     }
 
-    exbirTarefaCrianca(req, res) {
+    exibirTarefaCrianca(req, res) {
         let { idTarefaCrianca } = req.params;
 
         database("tarefaCrianca")

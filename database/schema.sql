@@ -25,6 +25,16 @@ CREATE TABLE IF NOT EXISTS crianca (
     CONSTRAINT FK_Crianca_Usuario FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario)
 );
 
+CREATE TABLE IF NOT EXISTS responsavel (
+    idResponsavel INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    email VARCHAR(128),
+    CPF VARCHAR(20),
+    idUsuario INT NOT NULL,
+    CONSTRAINT FK_Responsavel_Usuario FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario),
+    CONSTRAINT UC_CPF UNIQUE (CPF)
+);
+
 CREATE TABLE IF NOT EXISTS tarefa (
 	idTarefa INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,

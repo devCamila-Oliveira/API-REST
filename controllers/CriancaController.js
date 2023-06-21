@@ -57,14 +57,13 @@ class CriancaController {
 
     atualizarCrianca(req, res) {
         let { id } = req.params;
-        let { nome, descricao, pontuacaoBase } = req.body;
+        let { nome, dataNascimento } = req.body;
 
         database("crianca")
             .where({ idCrianca: id })
             .update({
                 nome: nome,
-                descricao: descricao,
-                pontuacaoBase: pontuacaoBase,
+                dataNascimento: dataNascimento,
             })
             .then((data) => {
                 res.json({ message: "Crianca atualizada com sucesso." });
